@@ -106,8 +106,10 @@ class MenuSliceFormController extends MenuFormLinkController {
       return array_reduce($tree, $sum);
     };
 
-    // Tree maximum or 50.
-    $delta = max($count($this->tree), 50);
+    // We need to change menu maximum weight from 50 to 100, because some of our main menu links used weight to 100.
+    // And if someone try to reordering menu items to using drag and drop and save it,
+    // then it will reverting all the menu items and their parents to maximum weight to -50.
+    $delta = max($count($this->tree), 100);
 
     $links = $this->buildOverviewTreeForm($this->tree, $delta);
 
